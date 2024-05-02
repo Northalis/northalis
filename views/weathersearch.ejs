@@ -1,0 +1,21 @@
+<%- include("partial/header.ejs") %>
+<link rel="stylesheet" href="CSS/index.css" />
+<link rel="stylesheet" href="CSS/weathersearch.css" />
+<%- include("partial/menubar.ejs") %>
+<!-- search -->
+<div class="box">
+  <img class="search-logo" src="IMG/TempestLogo.png"/>
+  <h2 class="searchbar-title">Prefer Location</h2>
+
+  <div class="search-section" >
+<form action="/weathersearch/cities" method="POST">
+  <input type="text" name="citySearchName" placeholder="Your Location" id="searchtext" />
+  <input class="submit-btn" type="submit" value="Search" id="search" />
+</form>
+
+  </div>
+
+  </div>
+</div>
+</body>
+</html>

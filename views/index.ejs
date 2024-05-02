@@ -1,0 +1,157 @@
+<%- include("partial/header.ejs") %>
+  <link rel="stylesheet" href="CSS/index.css" />
+  <%- include("partial/menubar.ejs") %>
+    <!-- current-weather -->
+    <div class="current-weather item">
+      <h1>TEMPEST</h1>
+      <div class="weather-status">
+        <div class="status">
+          <img class="img-status" src="https://openweathermap.org/img/wn/<%= Imagestatus %>@2x.png"
+            alt="sunny weather" />
+        </div>
+        <div class="">
+          <h2 class="city-name">
+            <%=Cityname%>
+          </h2>
+          <h3 class="">
+            <%= Currentweather %>
+          </h3>
+          <h4 class="temperature">
+            <%= currentTemp %>°C
+          </h4>
+        </div>
+      </div>
+
+      <div class="hourly-weather">
+        <% Hourly.list.forEach(hour=>{ %>
+          <div class="hourly-report-item">
+            <img src="https://openweathermap.org/img/wn/<%= hour.weather[0].icon  %>@2x.png" alt="Sunny" />
+            <p>
+              <%= new Date((hour.dt*1000) + (Hourly.city.timezone * 1000)).getUTCHours() %>:00
+            </p>
+            <p>
+              <%= Math.round(hour.main.temp)%>°C
+            </p>
+          </div>
+          <% }); %>
+
+      </div>
+
+      <div class="more-weather-info">
+
+          <div class="wind-info info-border">
+            <h3>WIND</h3>
+            <p>
+              <%= windSpeed %> KM/H <%= windDirection %>
+            </p>
+          </div>
+          <a class="sunrise info-border" href="/sunrise">
+            <div>
+              <h4>Sunrise</h4>
+              <p class="sunset-info">
+  
+                <%= sunriseHour %> : <%= sunriseMinute %>
+              </p>
+  
+            </div>
+          </a>
+
+        <a class="sunrise info-border" href="/sunset">
+          <div>
+            <h4>Sunset</h4>
+            <p class="sunset-info">
+
+              <%= sunsetHour %> : <%= sunsetMinute %>
+            </p>
+
+          </div>
+        </a>
+        <div class="feellike-temp info-border">
+          <h4>Feelike</h4>
+          <p class="feellike">
+            <%= feellikeTemp %>°C
+          </p>
+        </div>
+        <div class="visibility info-border">
+          <h4>Visibility</h4>
+          <p>
+            <%= Visibility %> Km
+          </p>
+        </div>
+        <div class="humidity info-border">
+          <h4>Humidity</h4>
+          <p class="humidity-info">
+            <%= Humidity %> %
+          </p>
+        </div>
+
+
+
+
+      </div>
+    </div>
+
+    <!-- Forecast -->
+    <div class="future item">
+      <h2 class="mb-1">7 Days Forecast</h2>
+      <div class="day-forecast">
+        <% Daily.list.forEach(days=> {%>
+          <%       function addZero(i) { %>
+            <% if (i < 10) { %>
+             <% i = "0" + i; %>
+            <%} %>
+            <% return i; %>
+          <%  } %>
+          <% var d=new Date(days.dt*1000 + (Daily.city.timezone *1000)); %>
+            <% var dayName=d.toDateString().split(' ')[0]; %>
+            <% var dayMonth = addZero(d.getDate()) + "/" + addZero(d.getMonth()) %>
+        <div class="days">
+          <div>
+            <h6 class="daytext"><%= dayName  %> <p class="day-month"><%= dayMonth %></p></h6>
+          </div>
+          <div>
+            <img class="status" src="https://openweathermap.org/img/wn/<%= days.weather[0].icon %>@2x.png" alt="sunny" />
+          </div>
+          <div>
+            <p class="daytext">Min <%= Math.round(days.temp.min) %>°C / <%= Math.round(days.temp.max) %>°C Max</p>
+          </div>
+        </div>
+        <% }); %>
+
+      </div>
+    </div>
+    </div>
+    <script>
+      let locationData;
+      function getLocation() {
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(sendLocation);
+        } else {
+          console.log("Geolocation is not supported by this browser.");
+        }
+      }
+
+      function sendLocation(position) {
+        locationData = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+
+        // Send the location data to the server using fetch API
+        fetch("/location", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(locationData),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log("Location data sent to server:", data))
+          .catch((error) => console.error("Error sending location data:", error));
+      }
+    </script>
+
+              </body>
+
+              </html>

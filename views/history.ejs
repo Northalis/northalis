@@ -1,0 +1,32 @@
+<%- include("partial/header.ejs") %>
+<link rel="stylesheet" href="CSS/index.css" />
+<link rel="stylesheet" href="CSS/history.css" />
+<%- include("partial/menubar.ejs") %>
+<!-- box -->
+<div class="box">
+    <h1>History</h1>
+    <div class="headtext">
+      <div><h6 class="text01">Id</h6></div>
+      <div><h6 class="text01">Time</h6></div>
+      <div><h6 class="text01">Location</h6></div>
+    </div>
+    <% searchdata.forEach(searchdata => { %>
+
+      <form method="POST" action="/history/<%= searchdata.id %>">
+        <div class="bodytext">
+          <div><h6 class="text02"><%= searchdata.id %></h6></div>
+          <div><h6 class="text02"><%= searchdata.time %></h6></div>
+          <div><h6 class="text02"><%= searchdata.city %></h6></div>
+          <input type="submit" value="Delete" />
+          <input type="hidden" name="_method" value="delete" />
+        </div>
+      </form>
+      
+
+    <% }) %>
+    
+
+  </div>
+</div>
+</body>
+</html>

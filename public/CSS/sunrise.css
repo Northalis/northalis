@@ -1,0 +1,74 @@
+.grid-container {
+  display: grid;
+  height: 100vh;
+  background: linear-gradient(300deg, #00bfff, lightblue, white);
+  grid-template-columns: 1fr 18fr;
+  gap: 20px;
+  padding: 10px;
+}
+
+.box {
+  width: 100%;
+  height: 98vh;
+  background-color: black;
+  opacity: 80%;
+  border-radius: 30px;
+  text-align: center;
+  color: white;
+}
+.pagetitle {
+  position: relative;
+  top: 20px;
+}
+
+.temptext {
+  text-indent: -25em;
+  margin-top: -2px;
+}
+.daytext {
+  margin-top: 20px;
+}
+
+.sunsetpic {
+  width: 40px;
+  position: absolute;
+  right: 50%;
+  top: 8.5%;
+}
+
+.sunsettext {
+  position: relative;
+  top: 20px;
+}
+.innerbox {
+  width: 90%;
+  height: 80%;
+  background-color: rgb(67, 65, 65);
+  opacity: 90%;
+  border-radius: 30px;
+  text-align: center;
+  color: white;
+  margin-top: 40px;
+  margin-left: 50px;
+}
+.sunset-sunrise-days {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  align-items: center;
+  text-align: center;
+}
+
+.daytext {
+  font-size: 20px;
+  text-align: center;
+}
+
+.table-title {
+  border-bottom: 2px solid gainsboro;
+}
+.day-month {
+  position: relative;
+  left: 80px;
+  bottom: 20px;
+}

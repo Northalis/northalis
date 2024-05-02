@@ -1,0 +1,45 @@
+<%- include("partial/header.ejs") %>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+crossorigin=""/>
+
+  <link rel="stylesheet" href="CSS/index.css" />
+  <link rel="stylesheet" href="CSS/map.css" />
+  <%- include("partial/menubar.ejs") %>
+
+    <!-- map -->
+    <div class="box">
+      <div id="map"></div>
+    </div>
+
+
+    </div>
+    </div>
+    </body>
+    <script>
+      const API_KEY = "79e42b9a650b466b69cc0a2401e343d4";
+
+      function myOwmMarker(data) {
+        // just a Leaflet default marker
+        return L.marker([data.coord.lat, data.coord.lon]);
+      }
+      
+      function myOwmPopup(data) {
+        // just a Leaflet default popup with name as content
+        return L.popup().setContent(data.name);
+      }
+      
+      var osm = L.tileLayer(`http://maps.openweathermap.org/maps/2.0/weather/TA2/{z}/{x}/{y}?appid=${API_KEY}`, {
+        maxZoom: 18, attribution: '[insert correct attribution here!]' });
+      
+      var clouds = L.OWM.clouds({showLegend: false, opacity: 0.5, appId: API_KEY});
+      var city = L.OWM.current({intervall: 15, lang: 'de',
+            markerFunction: myOwmMarker, popupFunction: myOwmPopup});
+      
+      var map = L.map('map', { center: new L.LatLng(51.5, 10), zoom: 10, layers: [osm] });
+      var baseMaps = { "OSM Standard": osm };
+      var overlayMaps = { "Clouds": clouds, "Cities": city };
+      var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+    </script>
+
+    </html>

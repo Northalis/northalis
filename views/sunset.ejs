@@ -1,0 +1,49 @@
+<%- include("partial/header.ejs") %>
+<link rel="stylesheet" href="CSS/index.css" />
+<link rel="stylesheet" href="CSS/sunset.css" />
+<%- include("partial/menubar.ejs") %>
+
+    <!-- sunset-->
+    <div class="box">
+      <h1 class="pagetitle"><%= cityName %></h1>
+      <img class="sunsetpic" src="IMG/sunset.svg" />
+      <div><h2 class="sunsettext">Sunset</h2></div>
+      <div class="innerbox">
+
+        <div class="sunset-sunrise-days table-title">
+          <div><h6 class="daytext">Day</h6></div>
+          <div><p class="daytext">Time</p></div>
+        </div>
+        <% sunsetDay.list.forEach(day => { %>
+          <% function addZero(i) { %>
+            <% if (i < 10) { %>
+             <% i = "0" + i; %>
+            <%} %>
+            <% return i; %>
+          <%  } %>
+          <% var d = new Date(day.dt*1000 + (sunsetDay.city.timezone *1000)); %>
+            <% var dayName=d.toDateString().split(' ')[0]; %>
+            <% var dayMonth = addZero(d.getDate()) + "/" + addZero(d.getMonth()) %>
+            <% var sunsetTime = new Date(day.sunset*1000 + (sunsetDay.city.timezone *1000))  %>
+            <% var sunsetH = addZero(sunsetTime.getUTCHours()); %>
+            <% var sunsetM = addZero(sunsetTime.getUTCMinutes()); %>
+          <div class="sunset-sunrise-days">
+            <div><h6 class="daytext"><%= dayName %> <p class="day-month"><%= dayMonth %></p></h6></div>
+            <div><p class="daytext"><%= sunsetH %> : <%= sunsetM %> </p></div>
+          </div>
+        <% }) %>
+
+
+
+        </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
