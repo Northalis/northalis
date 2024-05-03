@@ -16,10 +16,6 @@ app.use(express.static("public"));
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
-
 const API_KEY = "79e42b9a650b466b69cc0a2401e343d4";
 const API_URL = "https://api.openweathermap.org/data/2.5";
 const Hourly_URL = "https://pro.openweathermap.org/data/2.5/";
